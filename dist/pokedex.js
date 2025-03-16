@@ -68,31 +68,31 @@ function fetchData() {
 fetchData();
 function searchPokemon() {
     return __awaiter(this, void 0, void 0, function () {
-        var searchedPokemon, response, data, error_2;
-        var _a, _b;
-        return __generator(this, function (_c) {
-            switch (_c.label) {
+        var searchedPokemon, response, data, pokemonData, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
                 case 0:
                     searchedPokemon = searchInput === null || searchInput === void 0 ? void 0 : searchInput.value.toLowerCase();
-                    _c.label = 1;
+                    _a.label = 1;
                 case 1:
-                    _c.trys.push([1, 4, , 5]);
+                    _a.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, fetch("".concat(URL2, "/").concat(searchedPokemon))];
                 case 2:
-                    response = _c.sent();
+                    response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 3:
-                    data = _c.sent();
+                    data = _a.sent();
+                    pokemonData = data;
                     if (pokemonContainer) {
                         pokemonContainer.innerHTML =
-                            "\n        <h3>".concat(data.name, "</h3>\n        <p>Numero: ").concat(data.id, "</p>\n        <p>Tipos: ").concat(data.types[0].type.name, " ").concat((_b = (_a = data.types[1]) === null || _a === void 0 ? void 0 : _a.type.name) !== null && _b !== void 0 ? _b : '', "</p>\n        <img src=\"").concat(data.sprites.front_default, "\">\n      ");
+                            "\n        <h3 id = \"pokemon-name\">".concat(pokemonData.name, "</h3>\n        <img id = \"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id = \"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
                     }
                     else {
                         console.error('Pokemon Container is null');
                     }
                     return [3 /*break*/, 5];
                 case 4:
-                    error_2 = _c.sent();
+                    error_2 = _a.sent();
                     console.error(error_2);
                     return [3 /*break*/, 5];
                 case 5: return [2 /*return*/];

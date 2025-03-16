@@ -40,14 +40,14 @@ async function searchPokemon() {
   const searchedPokemon = searchInput?.value.toLowerCase();
   try {
     const response = await fetch(`${URL2}/${searchedPokemon}`);
-    const data: PokemonData = await response.json();
+    const data = await response.json();
+    const pokemonData: PokemonData = data;
     if (pokemonContainer) {
       pokemonContainer.innerHTML = 
       `
-        <h3>${data.name}</h3>
-        <p>Numero: ${data.id}</p>
-        <p>Tipos: ${data.types[0].type.name} ${data.types[1]?.type.name ?? ''}</p>
-        <img src="${data.sprites.front_default}">
+        <h3 id = "pokemon-name">${pokemonData.name}</h3>
+        <img id = "pokemon-img" src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
+        <p id = "pokemon-type">Type: ${pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(typeInfo => typeInfo.type.name).map(typeInfo => typeInfo.type.name).join(', ') : 'Unknown'}</p>
       `;
     } else {
       console.error('Pokemon Container is null');

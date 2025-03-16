@@ -49,3 +49,27 @@ h1 {
 #search-container button:hover {
     background-color: #b93b3b;
 }
+
+#pokemon-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#pokemon-name {
+    font-family: pokemonhollow, 'Times New Roman', Times, serif;
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+#pokemon-img {
+    width: 300px;
+    height: auto;
+    /*Cuando escalaba la imagen quedaba pixelada asique he buscado esta solución, queda perfecto*/
+    image-rendering: pixelated;
+}
+
+#pokemon-type {
+    font-size: 20px;
+}
