@@ -68,7 +68,7 @@ function fetchData() {
 fetchData();
 function searchPokemon() {
     return __awaiter(this, void 0, void 0, function () {
-        var searchedPokemon, response, data, pokemonData, error_2;
+        var searchedPokemon, response, data, pokemonData, pokemonName, error_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -83,9 +83,10 @@ function searchPokemon() {
                 case 3:
                     data = _a.sent();
                     pokemonData = data;
+                    pokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
                     if (pokemonContainer) {
                         pokemonContainer.innerHTML =
-                            "\n        <h3 id = \"pokemon-name\">".concat(pokemonData.name, "</h3>\n        <img id = \"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id = \"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
+                            "\n        <h3 id = \"pokemon-name\">".concat(pokemonName, "</h3>\n        <img id = \"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id = \"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
                     }
                     else {
                         console.error('Pokemon Container is null');

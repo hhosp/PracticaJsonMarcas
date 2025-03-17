@@ -42,10 +42,11 @@ async function searchPokemon() {
     const response = await fetch(`${URL2}/${searchedPokemon}`);
     const data = await response.json();
     const pokemonData: PokemonData = data;
+    let pokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
     if (pokemonContainer) {
       pokemonContainer.innerHTML = 
       `
-        <h3 id = "pokemon-name">${pokemonData.name}</h3>
+        <h3 id = "pokemon-name">${pokemonName}</h3>
         <img id = "pokemon-img" src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
         <p id = "pokemon-type">Type: ${pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(typeInfo => typeInfo.type.name).map(typeInfo => typeInfo.type.name).join(', ') : 'Unknown'}</p>
       `;
