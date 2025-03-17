@@ -39,22 +39,24 @@ var URL2 = 'https://pokeapi.co/api/v2/pokemon/';
 var searchInput = document.getElementById("search");
 var pokemonContainer = document.getElementById("pokemon-container");
 var searchButton = document.getElementById("search-button");
+var suggestionsContainer = document.getElementById("suggestions-container");
+var allPokemonNames = [];
 function fetchData() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, data, pokemons, pokemonNames, error_1;
+        var response, data, pokemons, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch(URL2 + '?limit=1000')];
+                    return [4 /*yield*/, fetch(URL2 + '?limit=1025')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
                 case 2:
                     data = _a.sent();
                     pokemons = data.results;
-                    pokemonNames = pokemons.map(function (pokemon) { return pokemon.name; });
-                    console.log(pokemonNames);
+                    allPokemonNames = pokemons.map(function (pokemon) { return pokemon.name; });
+                    console.log(allPokemonNames);
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
@@ -66,6 +68,28 @@ function fetchData() {
     });
 }
 fetchData();
+function showSuggestions() {
+    var query = searchInput.value.toLowerCase();
+    if (suggestionsContainer) {
+        suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias
+    }
+    if (query.length > 0) {
+        var filteredNames = allPokemonNames.filter(function (name) { return name.startsWith(query); });
+        filteredNames.forEach(function (name) {
+            var suggestionItem = document.createElement('div');
+            suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            suggestionItem.classList.add('suggestion-item');
+            suggestionItem.addEventListener('click', function () {
+                searchInput.value = name;
+                if (suggestionsContainer) {
+                    suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias al seleccionar una
+                }
+                searchPokemon();
+            });
+            suggestionsContainer === null || suggestionsContainer === void 0 ? void 0 : suggestionsContainer.appendChild(suggestionItem);
+        });
+    }
+}
 function searchPokemon() {
     return __awaiter(this, void 0, void 0, function () {
         var searchedPokemon, response, data, pokemonData, pokemonName, error_2;
@@ -86,7 +110,7 @@ function searchPokemon() {
                     pokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
                     if (pokemonContainer) {
                         pokemonContainer.innerHTML =
-                            "\n        <h3 id = \"pokemon-name\">".concat(pokemonName, "</h3>\n        <img id = \"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id = \"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
+                            "\n        <h3 id=\"pokemon-name\">".concat(pokemonName, "</h3>\n        <img id=\"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id=\"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
                     }
                     else {
                         console.error('Pokemon Container is null');
@@ -101,12 +125,14 @@ function searchPokemon() {
         });
     });
 }
-//Event listener per a trucar la funció searchPokemon si es dona click en el botó de buscar
+// Event listener para llamar a la función searchPokemon si se da click en el botón de buscar
 searchButton === null || searchButton === void 0 ? void 0 : searchButton.addEventListener("click", searchPokemon);
-//Event listener per a trucar la funció e si es presiona una tecla
+// Event listener para llamar a la función searchPokemon si se presiona una tecla
 searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("keypress", function (e) {
-    //Si la tecla presionada es Enter es truca a la funcio searchPokemon
+    // Si la tecla presionada es Enter se llama a la función searchPokemon
     if (e.key === "Enter") {
         searchPokemon();
     }
 });
+// Event listener para mostrar sugerencias mientras se escribe
+searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("input", showSuggestions);
