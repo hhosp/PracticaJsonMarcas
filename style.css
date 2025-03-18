@@ -81,12 +81,12 @@ h1 {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 300px;
+    width: 320px;
     max-height: 200px;
     overflow-y: auto;
     z-index: 1000;
     margin-top: 40px;
-    margin-right: 120px;
+    margin-right: 107px;
   }
   /* Style de cada item de les sugerencies */
   .suggestion-item {
