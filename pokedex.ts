@@ -1,6 +1,8 @@
+//URL de la API
 const URL2 = 'https://pokeapi.co/api/v2/pokemon/';
 
-const searchInput = document.getElementById("search") as HTMLInputElement;
+//Variables on guardem els elements HTML segons l'Id
+const searchInput = document.getElementById("search") as HTMLInputElement; //Sugerencia del IDE ja que era necesari
 const pokemonContainer = document.getElementById("pokemon-container");
 const searchButton = document.getElementById("search-button");
 const suggestionsContainer = document.getElementById("suggestions-container");
@@ -10,7 +12,6 @@ interface Pokemon {
   url: string;
   sprite: string;
 }
-
 interface PokemonData {
   name: string;
   id: number;
@@ -24,8 +25,10 @@ interface PokemonData {
   }[]
 }
 
+//Declarem un array de Strings buit per a emmagatzemar els noms dels pokemons més tard
 let allPokemonNames: string[] = [];
 
+//Funció asíncrona per a recollir dades de la API
 async function fetchData() {
   try {
     const response = await fetch(URL2 + '?limit=1025');
@@ -52,7 +55,7 @@ function showSuggestions() {
       suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1);
       suggestionItem.classList.add('suggestion-item');
       suggestionItem.addEventListener('click', () => {
-        searchInput.value = name;
+        searchInput.value = name.charAt(0).toUpperCase() + name.slice(1);
         if (suggestionsContainer) {
           suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias al seleccionar una
         }
@@ -73,7 +76,7 @@ async function searchPokemon() {
     if (pokemonContainer) {
       pokemonContainer.innerHTML = 
       `
-        <h3 id="pokemon-name">${pokemonName}</h3>
+        <h3 id="pokemon-name">${pokemonName}  #${pokemonData.id}</h3>
         <img id="pokemon-img" src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}">
         <p id="pokemon-type">Type: ${pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(typeInfo => typeInfo.type.name).map(typeInfo => typeInfo.type.name).join(', ') : 'Unknown'}</p>
       `;

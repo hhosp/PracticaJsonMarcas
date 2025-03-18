@@ -80,7 +80,7 @@ function showSuggestions() {
             suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1);
             suggestionItem.classList.add('suggestion-item');
             suggestionItem.addEventListener('click', function () {
-                searchInput.value = name;
+                searchInput.value = name.charAt(0).toUpperCase() + name.slice(1);
                 if (suggestionsContainer) {
                     suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias al seleccionar una
                 }
@@ -110,7 +110,7 @@ function searchPokemon() {
                     pokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
                     if (pokemonContainer) {
                         pokemonContainer.innerHTML =
-                            "\n        <h3 id=\"pokemon-name\">".concat(pokemonName, "</h3>\n        <img id=\"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id=\"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
+                            "\n        <h3 id=\"pokemon-name\">".concat(pokemonName, "  #").concat(pokemonData.id, "</h3>\n        <img id=\"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id=\"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
                     }
                     else {
                         console.error('Pokemon Container is null');
