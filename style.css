@@ -45,36 +45,37 @@ h1 {
     font-size: 16px;
     cursor: pointer;
 }
-
+/* Style del botó de cerca si passem el ratolí per sobre */
 #search-container button:hover {
     background-color: #b93b3b;
 }
-
+/* Style del contenidor del pokemon , OPCIONAL: Afegir border per a enmarcar el contenidor*/
 #pokemon-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
+/* Style del nom del pokemon */
 #pokemon-name {
     font-family: pokemonhollow, 'Times New Roman', Times, serif;
     font-size: 35px;
     margin-bottom: 10px;
 }
-
+/* Style de la imatge del pokemón */
 #pokemon-img {
     width: 300px;
     height: auto;
     /*Cuando escalaba la imagen quedaba pixelada asique he buscado esta solución, queda perfecto*/
     image-rendering: pixelated;
 }
-
+/* Style dels tipus dels pokemons OPCIONAL: Fer un id per a cada tipus de pokemon i afegir color personalitzat */
 #pokemon-type {
     font-size: 20px;
     font-family: pokemonhollow, 'Times New Roman', 'Times', serif;
     font-weight: bold;
 }
+/* Style del contenidor de sugerencies */
 #suggestions-container {
     position: absolute;
     background-color: white;
@@ -87,12 +88,12 @@ h1 {
     margin-top: 40px;
     margin-right: 120px;
   }
-  
+  /* Style de cada item de les sugerencies */
   .suggestion-item {
     padding: 10px;
     cursor: pointer;
   }
-  
+  /* Style de cada item de les sugerencies si passem el ratolí per sobre */
   .suggestion-item:hover {
     background-color: #f0f0f0;
   }

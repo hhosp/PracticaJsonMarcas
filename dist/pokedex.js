@@ -35,12 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+//URL de la API
 var URL2 = 'https://pokeapi.co/api/v2/pokemon/';
-var searchInput = document.getElementById("search");
+//Variables on guardem els elements HTML segons l'Id
+var searchInput = document.getElementById("search"); //Sugerencia del IDE ja que era necesari
 var pokemonContainer = document.getElementById("pokemon-container");
 var searchButton = document.getElementById("search-button");
 var suggestionsContainer = document.getElementById("suggestions-container");
+//Declarem un array de Strings buit per a emmagatzemar els noms dels pokemons més tard
 var allPokemonNames = [];
+//Funció assíncrona per a recollir dades de la API
 function fetchData() {
     return __awaiter(this, void 0, void 0, function () {
         var response, data, pokemons, error_1;
@@ -55,8 +59,7 @@ function fetchData() {
                 case 2:
                     data = _a.sent();
                     pokemons = data.results;
-                    allPokemonNames = pokemons.map(function (pokemon) { return pokemon.name; });
-                    console.log(allPokemonNames);
+                    allPokemonNames = pokemons.map(function (pokemon) { return pokemon.name; }); //Apliquem la funció .map per a recollir nomes els noms
                     return [3 /*break*/, 4];
                 case 3:
                     error_1 = _a.sent();
@@ -68,28 +71,30 @@ function fetchData() {
     });
 }
 fetchData();
+//Funció per a mostrar sugerencies segons l'entrada de l'usuari
 function showSuggestions() {
-    var query = searchInput.value.toLowerCase();
+    var query = searchInput.value.toLowerCase(); //Variable per a guardar el valor d'entrada en minuscules
     if (suggestionsContainer) {
-        suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias
+        suggestionsContainer.innerHTML = ''; // Netejar el contenidor de sugerencies
     }
     if (query.length > 0) {
-        var filteredNames = allPokemonNames.filter(function (name) { return name.startsWith(query); });
+        var filteredNames = allPokemonNames.filter(function (name) { return name.startsWith(query); }); //Filtrem els noms segons la combinació de lletres introduida per l'usuari
         filteredNames.forEach(function (name) {
-            var suggestionItem = document.createElement('div');
-            suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-            suggestionItem.classList.add('suggestion-item');
+            var suggestionItem = document.createElement('div'); //Fem un div per a cada name trobat amb filteredNames
+            suggestionItem.textContent = name.charAt(0).toUpperCase() + name.slice(1); //Pasem la 1ra lletra del textContent a majuscules i ho juntem amb la resta menys la 1ra lletra
+            suggestionItem.classList.add('suggestion-item'); //Afegim la clase suggestion-item al div
             suggestionItem.addEventListener('click', function () {
                 searchInput.value = name.charAt(0).toUpperCase() + name.slice(1);
                 if (suggestionsContainer) {
-                    suggestionsContainer.innerHTML = ''; // Limpiar el contenedor de sugerencias al seleccionar una
+                    suggestionsContainer.innerHTML = ''; // Netejar el contenidor de sugerencies
                 }
-                searchPokemon();
+                searchPokemon(); //Cridem la funció de searchPokemon() una vegada cambiat el valor del searchInput
             });
-            suggestionsContainer === null || suggestionsContainer === void 0 ? void 0 : suggestionsContainer.appendChild(suggestionItem);
+            suggestionsContainer === null || suggestionsContainer === void 0 ? void 0 : suggestionsContainer.appendChild(suggestionItem); //Dins el suggestionContainer afegim cada div com a Child
         });
     }
 }
+//Funció assíncrona per a buscar el pokemon segons el searchInput
 function searchPokemon() {
     return __awaiter(this, void 0, void 0, function () {
         var searchedPokemon, response, data, pokemonData, pokemonName, error_2;
@@ -109,8 +114,9 @@ function searchPokemon() {
                     pokemonData = data;
                     pokemonName = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
                     if (pokemonContainer) {
-                        pokemonContainer.innerHTML =
-                            "\n        <h3 id=\"pokemon-name\">".concat(pokemonName, "  #").concat(pokemonData.id, "</h3>\n        <img id=\"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id=\"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ? pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p>\n      ");
+                        pokemonContainer.innerHTML = //Editem el innerHTML del pokemon Container per a mostrar les dades
+                            "\n        <h3 id=\"pokemon-name\">".concat(pokemonName, "  #").concat(pokemonData.id, "</h3>\n        <img id=\"pokemon-img\" src=\"").concat(pokemonData.sprites.front_default, "\" alt=\"").concat(pokemonData.name, "\">\n        <p id=\"pokemon-type\">Type: ").concat(pokemonData.types && pokemonData.types.length > 0 ?
+                                pokemonData.types.filter(function (typeInfo) { return typeInfo.type.name; }).map(function (typeInfo) { return typeInfo.type.name; }).join(', ') : 'Unknown', "</p> <!--Condicional per a evitar errors, si t\u00E9 mes d'un tipus els juntem amb una coma-->\n      ");
                     }
                     else {
                         console.error('Pokemon Container is null');
@@ -125,14 +131,14 @@ function searchPokemon() {
         });
     });
 }
-// Event listener para llamar a la función searchPokemon si se da click en el botón de buscar
+//Listener per a trucar a la funció searchPokemon si donem click
 searchButton === null || searchButton === void 0 ? void 0 : searchButton.addEventListener("click", searchPokemon);
-// Event listener para llamar a la función searchPokemon si se presiona una tecla
+//Listener per a trucar la funció searchPokemon si la tecla presionada es Enter
 searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("keypress", function (e) {
     // Si la tecla presionada es Enter se llama a la función searchPokemon
     if (e.key === "Enter") {
         searchPokemon();
     }
 });
-// Event listener para mostrar sugerencias mientras se escribe
+//Listener per a cridar la funció showSuggestions si el input de SearchInput varia
 searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("input", showSuggestions);
