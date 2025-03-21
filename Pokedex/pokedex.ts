@@ -31,7 +31,7 @@ let allPokemonNames: string[] = [];
 //Funció assíncrona per a recollir dades de la API
 async function fetchData() {
   try {
-    const response = await fetch(URL2 + '?limit=1025'); //Variable per a recollir la resposta de la api amb fetch()
+    const response = await fetch(URL2 + '?limit=1000'); //Variable per a recollir la resposta de la api amb fetch()
     const data = await response.json(); //Transformem la resposta en un .json i ho guardem a una variable
     const pokemons: Pokemon[] = data.results; //Guardem els resultats del .json en una variable
     allPokemonNames = pokemons.map(pokemon => pokemon.name); //Apliquem la funció .map per a recollir nomes els noms
@@ -101,3 +101,4 @@ searchInput?.addEventListener("keypress", e => {
 
 //Listener per a cridar la funció showSuggestions si el input de SearchInput varia
 searchInput?.addEventListener("input", showSuggestions);
+console.log(allPokemonNames);

@@ -52,7 +52,7 @@ function fetchData() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, fetch(URL2 + '?limit=1025')];
+                    return [4 /*yield*/, fetch(URL2 + '?limit=1000')];
                 case 1:
                     response = _a.sent();
                     return [4 /*yield*/, response.json()];
@@ -142,3 +142,4 @@ searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventLi
 });
 //Listener per a cridar la funció showSuggestions si el input de SearchInput varia
 searchInput === null || searchInput === void 0 ? void 0 : searchInput.addEventListener("input", showSuggestions);
+console.log(allPokemonNames);
